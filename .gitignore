@@ -65,3 +65,5 @@ debugclient.sh
 copydeps.sh
 
 src/main/resources/data/charmonium/disabled/*
+
+/libs

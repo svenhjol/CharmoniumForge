@@ -7,6 +7,7 @@ import svenhjol.charm.base.CharmModule;
 import svenhjol.charm.base.helper.DimensionHelper;
 import svenhjol.charm.client.MusicImprovementsClient;
 import svenhjol.charm.client.MusicImprovementsClient.MusicCondition;
+import svenhjol.charm.client.PlayerStateClient;
 import svenhjol.charmonium.base.CharmoniumSounds;
 
 public class MusicClient extends CharmClientModule {
@@ -41,5 +42,9 @@ public class MusicClient extends CharmClientModule {
                 && DimensionHelper.isDimension(mc.player.world, new ResourceLocation("the_nether"))
                 && mc.player.world.rand.nextFloat() < 0.33F;
         }));
+
+        // play Steinn and Draugur in ruins
+        MusicImprovementsClient.getMusicConditions().add(new MusicCondition(CharmoniumSounds.MUSIC_RUIN, 1200, 2400, mc
+            -> mc.player != null && PlayerStateClient.INSTANCE.ruin));
     }
 }

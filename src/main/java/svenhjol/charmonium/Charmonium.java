@@ -6,7 +6,6 @@ import svenhjol.charmonium.base.CharmoniumSounds;
 import svenhjol.charmonium.module.Music;
 import svenhjol.charmonium.module.Sounds;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 
 
@@ -17,9 +16,9 @@ public class Charmonium {
     public Charmonium() {
         CharmoniumSounds.init();
 
-        ModuleHandler.AVAILABLE_MODULES.put(Charmonium.MOD_ID, new ArrayList<>(Arrays.asList(
+        ModuleHandler.INSTANCE.registerForgeMod(MOD_ID, Arrays.asList(
             Music.class,
             Sounds.class
-        )));
+        ));
     }
 }

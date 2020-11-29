@@ -13,7 +13,7 @@ Ambient sounds and additional music for Charm.
 '''
 authors="svenhjol, warlordwossman, Coranthes"
 
-[[dependencies.charm]]
+[[dependencies.charmonium]]
     modId="forge"
     mandatory=true
     versionRange="[34.0,)"
@@ -21,6 +21,13 @@ authors="svenhjol, warlordwossman, Coranthes"
     side="BOTH"
 
 [[dependencies.charm]]
+    modId="charm"
+    mandatory=true
+    versionRange="[2.1.3,)"
+    ordering="BEFORE"
+    side="BOTH"
+
+[[dependencies.charmonium]]
     modId="quark"
     mandatory=false
     versionRange="[r2.4,)"

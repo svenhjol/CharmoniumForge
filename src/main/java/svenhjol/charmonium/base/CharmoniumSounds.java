@@ -15,6 +15,7 @@ public class CharmoniumSounds {
     public static final SoundEvent MUSIC_THARNA = createSound("music.tharna");
     public static final SoundEvent MUSIC_MUS = createSound("music.mus");
     public static final SoundEvent MUSIC_UNDIR = createSound("music.undir");
+    public static final SoundEvent MUSIC_RUIN = createSound("music.ruin");
     public static final SoundEvent MUSIC_DISC = createSound("music_disc.charmonium");
 
     // ambience
@@ -37,6 +38,7 @@ public class CharmoniumSounds {
     public static final SoundEvent AMBIENCE_ICY_DAY_LONG = createSound("ambience.icy.day_long");
     public static final SoundEvent AMBIENCE_ICY_DAY_SHORT = createSound("ambience.icy.day_short");
     public static final SoundEvent AMBIENCE_ICY_NIGHT_LONG = createSound("ambience.icy.night_long");
+    public static final SoundEvent AMBIENCE_ICY_THUNDERSTORM = createSound("ambience.icy.thunderstorm");
     public static final SoundEvent AMBIENCE_JUNGLE_DAY_LONG = createSound("ambience.jungle.day_long");
     public static final SoundEvent AMBIENCE_JUNGLE_NIGHT_LONG = createSound("ambience.jungle.night_long");
     public static final SoundEvent AMBIENCE_MINESHAFT_SHORT = createSound("ambience.mineshaft.short");

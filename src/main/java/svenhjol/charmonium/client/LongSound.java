@@ -1,14 +1,14 @@
 package svenhjol.charmonium.client;
 
-import net.minecraft.client.sound.MovingSoundInstance;
+import net.minecraft.client.audio.TickableSound;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvent;
-import svenhjol.charm.mixin.accessor.MovingSoundInstanceAccessor;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvent;
+import svenhjol.charm.mixin.accessor.TickableSoundAccessor;
 
 import java.util.function.Predicate;
 
-public class LongSound extends MovingSoundInstance {
+public class LongSound extends TickableSound {
     private final PlayerEntity player;
     private int longTicks;
     private final Predicate<PlayerEntity> predicate;
@@ -21,8 +21,8 @@ public class LongSound extends MovingSoundInstance {
         this.repeat = true;
         this.repeatDelay = 0;
         this.volume = 0.01F;
-        this.field_18935 = true;
-        this.looping = true;
+        this.priority = true;
+        this.global = true;
         this.predicate = predicate;
         this.longTicks = -50;
     }
@@ -40,13 +40,13 @@ public class LongSound extends MovingSoundInstance {
             this.longTicks = Math.min(this.longTicks, 140);
             this.volume = Math.max(0.0F, Math.min((float) this.longTicks / 140, 1.0F)) * maxVolume;
 
-            boolean donePlaying = ((MovingSoundInstanceAccessor) this).getDone();
+            boolean donePlaying = ((TickableSoundAccessor) this).getDonePlaying();
 
             if (!donePlaying && this.volume == 0.0F && this.longTicks < -100)
-                ((MovingSoundInstanceAccessor) this).setDone(true);
+                ((TickableSoundAccessor) this).setDonePlaying(true);
 
         } else {
-            ((MovingSoundInstanceAccessor) this).setDone(true);
+            ((TickableSoundAccessor) this).setDonePlaying(true);
         }
     }
 }

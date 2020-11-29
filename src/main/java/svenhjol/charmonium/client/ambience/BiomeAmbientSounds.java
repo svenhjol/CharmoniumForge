@@ -1,6 +1,6 @@
 package svenhjol.charmonium.client.ambience;
 
-import net.minecraft.client.sound.SoundManager;
+import net.minecraft.client.audio.SoundHandler;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.world.biome.Biome;
 import svenhjol.charm.client.PlayerStateClient;
@@ -8,7 +8,7 @@ import svenhjol.charmonium.client.LongSound;
 
 @SuppressWarnings("unused")
 public abstract class BiomeAmbientSounds extends BaseAmbientSounds {
-    public BiomeAmbientSounds(PlayerEntity player, SoundManager soundHandler) {
+    public BiomeAmbientSounds(PlayerEntity player, SoundHandler soundHandler) {
         super(player, soundHandler);
     }
 

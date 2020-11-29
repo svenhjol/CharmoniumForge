@@ -1,27 +1,27 @@
 package svenhjol.charmonium.client.ambience;
 
-import net.minecraft.client.sound.SoundManager;
+import net.minecraft.client.audio.SoundHandler;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.sound.SoundEvent;
-import net.minecraft.util.Identifier;
-import svenhjol.charmonium.base.CharmoniumSounds;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.SoundEvent;
 import svenhjol.charm.base.helper.DimensionHelper;
+import svenhjol.charmonium.base.CharmoniumSounds;
 
 import javax.annotation.Nullable;
 
 public class EndAmbientSounds extends BaseAmbientSounds {
-    public EndAmbientSounds(PlayerEntity player, SoundManager soundHandler) {
+    public EndAmbientSounds(PlayerEntity player, SoundHandler soundHandler) {
         super(player, soundHandler);
     }
 
     public boolean isValid() {
         if (world == null) return false;
-        return DimensionHelper.isDimension(player.world, new Identifier("the_end"));
+        return DimensionHelper.isDimension(player.world, new ResourceLocation("the_end"));
     }
 
     @Override
     public int getShortSoundDelay() {
-        return world.random.nextInt(300) + 300;
+        return world.rand.nextInt(300) + 300;
     }
 
     @Nullable

@@ -1,10 +1,10 @@
 package svenhjol.charmonium.client.ambience;
 
 import net.minecraft.block.*;
-import net.minecraft.client.network.ClientPlayerEntity;
-import net.minecraft.client.sound.MovingSoundInstance;
-import net.minecraft.client.sound.SoundInstance;
-import net.minecraft.client.sound.SoundManager;
+import net.minecraft.block.material.Material;
+import net.minecraft.client.audio.SoundHandler;
+import net.minecraft.client.audio.TickableSound;
+import net.minecraft.client.entity.player.ClientPlayerEntity;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.BlockPos;
@@ -19,13 +19,13 @@ import java.util.ConcurrentModificationException;
 public abstract class BaseAmbientSounds implements IAmbientSounds {
     protected int shortTicks = 0;
     protected boolean isValid = false;
-    protected MovingSoundInstance longSound = null;
+    protected TickableSound longSound = null;
 
     protected final PlayerEntity player;
     protected final ClientWorld world;
-    protected final SoundManager soundHandler;
+    protected final SoundHandler soundHandler;
 
-    public BaseAmbientSounds(PlayerEntity player, SoundManager soundHandler) {
+    public BaseAmbientSounds(PlayerEntity player, SoundHandler soundHandler) {
         this.player = player;
         this.soundHandler = soundHandler;
         this.world = (ClientWorld) player.world;
@@ -58,31 +58,31 @@ public abstract class BaseAmbientSounds implements IAmbientSounds {
     }
 
     public boolean isOutside() {
-        if (player.isSubmergedInWater()) return false;
+        if (player.canSwim()) return false;
 
         int blocks = 16;
         int start = 1;
 
-        BlockPos playerPos = player.getBlockPos();
+        BlockPos playerPos = player.getPosition();
 
         for (int i = start; i < start + blocks; i++) {
             BlockPos check = new BlockPos(playerPos.getX(), playerPos.getY() + i, playerPos.getZ());
             BlockState state = world.getBlockState(check);
             Block block = state.getBlock();
 
-            if (world.isSkyVisibleAllowingSea(check)) return true;
+            if (world.canBlockSeeSky(check)) return true;
 
-            if (world.isAir(check)) continue;
+            if (world.isAirBlock(check)) continue;
             if (state.getMaterial() == Material.GLASS
-                || (block instanceof PillarBlock && state.getMaterial() == Material.WOOD) // no more LogBlock, wtf?
+                || (block instanceof RotatedPillarBlock && state.getMaterial() == Material.WOOD) // no more LogBlock, wtf?
                 || block instanceof MushroomBlock
                 || block instanceof StemBlock
             ) continue;
 
-            if (state.isOpaque()) return false;
+            if (state.isSolid()) return false;
         }
 
-        return player.getBlockPos().getY() >= 48;
+        return player.getPosition().getY() >= 48;
     }
 
     protected void setShortSound() {
@@ -101,7 +101,7 @@ public abstract class BaseAmbientSounds implements IAmbientSounds {
     }
 
     public boolean isPlayingLongSound() {
-        return this.longSound != null && !this.longSound.isDone();
+        return this.longSound != null && !this.longSound.isDonePlaying();
     }
 
     public float getShortSoundVolume() {
@@ -113,7 +113,7 @@ public abstract class BaseAmbientSounds implements IAmbientSounds {
     }
 
     public int getShortSoundDelay() {
-        return world.random.nextInt(400) + 400;
+        return world.rand.nextInt(400) + 400;
     }
 
     public boolean hasLongSound() {
@@ -135,7 +135,7 @@ public abstract class BaseAmbientSounds implements IAmbientSounds {
     }
 
     @Override
-    public SoundManager getSoundManager() {
+    public SoundHandler getSoundHandler() {
         return soundHandler;
     }
 }

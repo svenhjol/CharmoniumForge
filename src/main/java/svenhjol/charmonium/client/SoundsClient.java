@@ -1,15 +1,14 @@
 package svenhjol.charmonium.client;
 
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.network.ClientPlayerEntity;
-import net.minecraft.client.sound.SoundManager;
-import net.minecraft.entity.Entity;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.audio.SoundHandler;
+import net.minecraft.client.entity.player.ClientPlayerEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.ActionResult;
+import net.minecraftforge.event.TickEvent;
+import net.minecraftforge.event.entity.EntityJoinWorldEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import svenhjol.charm.base.CharmClientModule;
 import svenhjol.charm.base.CharmModule;
-import svenhjol.charm.event.AddEntityCallback;
-import svenhjol.charm.event.PlayerTickCallback;
 import svenhjol.charmonium.client.ambience.*;
 
 import java.util.ArrayList;
@@ -23,30 +22,27 @@ public class SoundsClient extends CharmClientModule {
         super(module);
     }
 
-    @Override
-    public void register() {
-        AddEntityCallback.EVENT.register(this::handlePlayerJoined);
-        PlayerTickCallback.EVENT.register(this::handlePlayerTick);
-    }
-
-    private ActionResult handlePlayerJoined(Entity entity) {
-        if (entity instanceof PlayerEntity
-            && entity.world.isClient) {
-            trySetupPlayerSoundHandler((PlayerEntity) entity);
+    @SubscribeEvent
+    public void onPlayerJoinWorld(EntityJoinWorldEvent event) {
+        if (event.getEntity() instanceof PlayerEntity
+            && event.getWorld().isRemote) {
+            trySetupPlayerSoundHandler((PlayerEntity)event.getEntity());
         }
-        return ActionResult.PASS;
     }
 
-    private void handlePlayerTick(PlayerEntity playerEntity) {
-        if (handler != null)
+    @SubscribeEvent
+    public void onPlayerTick(TickEvent.PlayerTickEvent event) {
+        if (event.phase == TickEvent.Phase.END
+            && event.player.world.isRemote
+            && handler != null)
             handler.tick();
     }
 
     public void trySetupPlayerSoundHandler(PlayerEntity player) {
         // we only care about ClientPlayerEntity (the actual player) not RemoteClientPlayerEntity (other players relative to the actual player)
         if (player instanceof ClientPlayerEntity) {
-            MinecraftClient mc = MinecraftClient.getInstance();
-            handler = new Handler(player, mc.getSoundManager());
+            Minecraft mc = Minecraft.getInstance();
+            handler = new Handler(player, mc.getSoundHandler());
         }
     }
 
@@ -54,7 +50,7 @@ public class SoundsClient extends CharmClientModule {
         private final PlayerEntity player;
         private final List<BaseAmbientSounds> ambientSounds = new ArrayList<>();
 
-        public Handler(PlayerEntity player, SoundManager soundHandler) {
+        public Handler(PlayerEntity player, SoundHandler soundHandler) {
             this.player = player;
 
             ambientSounds.addAll(Arrays.asList(

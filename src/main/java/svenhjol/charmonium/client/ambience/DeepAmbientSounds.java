@@ -1,32 +1,31 @@
 package svenhjol.charmonium.client.ambience;
 
-import net.minecraft.client.sound.SoundManager;
+import net.minecraft.client.audio.SoundHandler;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.sound.SoundEvent;
-import net.minecraft.util.Identifier;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import svenhjol.charm.base.helper.DimensionHelper;
 import svenhjol.charmonium.base.CharmoniumSounds;
 
-
 import javax.annotation.Nullable;
 
 public class DeepAmbientSounds extends BaseAmbientSounds {
-    public DeepAmbientSounds(PlayerEntity player, SoundManager soundHandler) {
+    public DeepAmbientSounds(PlayerEntity player, SoundHandler soundHandler) {
         super(player, soundHandler);
     }
 
     @Override
     public boolean isValid() {
-        if (world == null || !DimensionHelper.isDimension(world, new Identifier("overworld"))) return false;
-        BlockPos pos = player.getBlockPos();
-        int light = world.getLightLevel(pos);
-        return !world.isSkyVisibleAllowingSea(pos) && pos.getY() <= 32 && light < 10;
+        if (world == null || !DimensionHelper.isDimension(world, new ResourceLocation("overworld"))) return false;
+        BlockPos pos = player.getPosition();
+        int light = world.getLight(pos);
+        return !world.canBlockSeeSky(pos) && pos.getY() <= 32 && light < 10;
     }
 
     @Override
     public int getShortSoundDelay() {
-        return world.random.nextInt(400) + 1000;
+        return world.rand.nextInt(400) + 1000;
     }
 
     @Override

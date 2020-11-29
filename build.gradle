@@ -1,60 +1,90 @@
-plugins {
-	id 'fabric-loom' version '0.4-SNAPSHOT'
-	id 'maven-publish'
+buildscript {
+	repositories {
+		maven { url = 'https://files.minecraftforge.net/maven' }
+		maven { url = 'https://repo.spongepowered.org/maven' }
+		jcenter()
+		mavenCentral()
+	}
+	dependencies {
+		classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '3.+', changing: true
+		classpath group: 'org.spongepowered', name: 'mixingradle', version: '0.7-SNAPSHOT'
+	}
 }
 
-sourceCompatibility = JavaVersion.VERSION_1_8
-targetCompatibility = JavaVersion.VERSION_1_8
+apply plugin: 'net.minecraftforge.gradle'
+apply plugin: 'org.spongepowered.mixin'
+
+sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
 
 archivesBaseName = project.archives_base_name
 version = project.mod_version
-group = project.maven_group
+group = "${project.maven_group}.${project.mod_id}"
+
+minecraft {
+	mappings channel: "${project.mapping_channel}", version: "${project.mapping_version}"
+	accessTransformer = file("src/main/resources/META-INF/accesstransformer.cfg")
+
+	runs {
+		client {
+			properties 'forge.logging.console.level': 'debug'
+			properties 'fml.earlyprogresswindow': 'false'
+			properties 'mixin.env.disableRefMap': 'true'
+			workingDirectory project.file('run')
+			source sourceSets.main
+			jvmArgs "-Xmx1500M"
+		}
+
+		server {
+			properties 'forge.logging.console.level': 'debug'
+			properties 'mixin.env.disableRefMap': 'true'
+			workingDirectory project.file('run')
+			source sourceSets.main
+		}
+	}
+}
 
 dependencies {
-	//to change the versions see the gradle.properties file
-	minecraft "com.mojang:minecraft:${project.minecraft_version}"
-	mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
-	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
+	minecraft "net.minecraftforge:forge:${project.minecraft_version}-${project.forge_version}"
 
-	// Fabric API. This is technically optional, but you probably want it anyway.
-	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+	compile fg.deobf("svenhjol.charm:charm:${project.charm_version}")
 
-	// PSA: Some older mods, compiled on Loom 0.2.1, might have outdated Maven POMs.
-	// You may need to force-disable transitiveness on them.
-	implementation 'com.google.code.findbugs:jsr305:3.0.2'
-	modImplementation "svenhjol.charm:charm:${charm_version}"
+	// third party
+	compileOnly fg.deobf("mezz.jei:jei-${project.minecraft_version}:${project.jei_version}:api")
+	runtimeOnly fg.deobf("mezz.jei:jei-${project.minecraft_version}:${project.jei_version}")
+}
 
-	implementation "com.moandjiezana.toml:toml4j:${project.toml4j_version}"
-	implementation "com.electronwill.night-config:core:${project.tomlnc_version}"
-	implementation "com.electronwill.night-config:toml:${project.tomlnc_version}"
-
-	include "com.moandjiezana.toml:toml4j:${project.toml4j_version}"
-	include "com.electronwill.night-config:core:${project.tomlnc_version}"
-	include "com.electronwill.night-config:toml:${project.tomlnc_version}"
+repositories {
+	maven {
+		// for JEI
+		name "progwml6"
+		url "http://dvs1.progwml6.com/files/maven"
+	}
+	maven {
+		// for Mappings
+		name "gigaherz"
+		url "http://dogforce-games.com/maven/"
+	}
+	flatDir {
+		// for including local jar files
+		dirs "libs"
+	}
 }
 
 processResources {
-	inputs.property "version", project.version
-
+	// replace stuff in mcmod.info, nothing else
 	from(sourceSets.main.resources.srcDirs) {
-		include "fabric.mod.json"
-		expand "version": project.version
+		include 'META-INF/mods.toml'
+
+		// replace version and mcversion
+		expand 'mod_version': project.mod_version
 	}
 
+	// copy everything else, thats not the mods.toml
 	from(sourceSets.main.resources.srcDirs) {
-		exclude "fabric.mod.json"
+		exclude 'META-INF/mods.toml', '**/psd/**'
 	}
 }
 
-// ensure that the encoding is set to UTF-8, no matter what the system default is
-// this fixes some edge cases with special characters not displaying correctly
-// see http://yodaconditions.net/blog/fix-for-java-file-encoding-problems-with-gradle.html
-tasks.withType(JavaCompile) {
-	options.encoding = "UTF-8"
-}
-
-// Loom will automatically attach sourcesJar to a RemapSourcesJar task and to the "build" task
-// if it is present.
 // If you remove this task, sources will not be generated.
 task sourcesJar(type: Jar, dependsOn: classes) {
 	classifier = "sources"
@@ -62,32 +92,22 @@ task sourcesJar(type: Jar, dependsOn: classes) {
 }
 
 jar {
-	from "LICENSE"
-}
+	archiveName = "${project.archives_base_name}-${project.mod_version}.${extension}"
 
-// configure the maven publication
-publishing {
-	publications {
-		mavenJava(MavenPublication) {
-			// add all the jars that should be included when publishing to maven
-			artifact(remapJar) {
-				builtBy remapJar
-			}
-			artifact(sourcesJar) {
-				builtBy remapSourcesJar
-			}
-		}
+	manifest {
+		attributes([
+				"Specification-Title": "${project.mod_id}",
+				"Specification-Vendor": "svenhjol",
+				"Specification-Version": "1", // We are version 1 of ourselves
+				"Implementation-Title": "${project.mod_id}",
+				"Implementation-Version": "${project.mod_version}",
+				"Implementation-Vendor": "svenhjol",
+				"Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
+		])
 	}
 
-	// select the repositories you want to publish to
-	repositories {
-		// uncomment to publish to the local maven
-		// mavenLocal()
-	}
-}
-
-repositories {
-	flatDir {
-		dirs "libs"
-	}
+	exclude "**/*.bat"
+	exclude "**/*.psd"
+	exclude "**/*.exe"
+	exclude "**/unused"
 }

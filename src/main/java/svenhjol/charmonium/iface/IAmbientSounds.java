@@ -1,9 +1,9 @@
 package svenhjol.charmonium.iface;
 
-import net.minecraft.client.sound.SoundManager;
+import net.minecraft.client.audio.SoundHandler;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.sound.SoundEvent;
+import net.minecraft.util.SoundEvent;
 
 import javax.annotation.Nullable;
 
@@ -12,7 +12,7 @@ public interface IAmbientSounds {
 
     PlayerEntity getPlayer();
 
-    SoundManager getSoundManager();
+    SoundHandler getSoundHandler();
 
     boolean isValid();
 

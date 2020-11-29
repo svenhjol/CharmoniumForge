@@ -1,15 +1,15 @@
 package svenhjol.charmonium.client.ambience;
 
-import net.minecraft.client.sound.SoundManager;
+import net.minecraft.client.audio.SoundHandler;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.sound.SoundEvent;
+import net.minecraft.util.SoundEvent;
 import svenhjol.charm.client.PlayerStateClient;
 import svenhjol.charmonium.base.CharmoniumSounds;
 
 import javax.annotation.Nullable;
 
 public class MineshaftAmbientSounds extends BaseAmbientSounds {
-    public MineshaftAmbientSounds(PlayerEntity player, SoundManager soundHandler) {
+    public MineshaftAmbientSounds(PlayerEntity player, SoundHandler soundHandler) {
         super(player, soundHandler);
     }
 
@@ -21,7 +21,7 @@ public class MineshaftAmbientSounds extends BaseAmbientSounds {
 
     @Override
     public int getShortSoundDelay() {
-        return world.random.nextInt(500) + 320;
+        return world.rand.nextInt(500) + 320;
     }
 
     @Nullable

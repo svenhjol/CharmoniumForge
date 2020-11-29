@@ -183,6 +183,12 @@
       {"name": "charmonium:ambience/wind/wind4"}
     ]
   },
+  "ambience.icy.thunderstorm": {
+    "sounds": [
+      {"name": "charmonium:ambience/wind/high1"},
+      {"name": "charmonium:ambience/wind/high2"}
+    ]
+  },
   "ambience.jungle.day_long": {
     "sounds": [
       {"name": "charmonium:ambience/birds/lush_forest"}

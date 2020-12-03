@@ -1,5 +1,5 @@
 modLoader="javafml"
-loaderVersion="[34,)"
+loaderVersion="[35,)"
 issueTrackerURL="http://github.com/svenhjol/Charm/issues"
 displayURL="https://svenhjol.github.io/Charm/"
 license="https://github.com/svenhjol/Charm/blob/master/LICENSE"
@@ -16,14 +16,14 @@ authors="svenhjol, warlordwossman, Coranthes"
 [[dependencies.charmonium]]
     modId="forge"
     mandatory=true
-    versionRange="[34.0,)"
+    versionRange="[35.1,)"
     ordering="NONE"
     side="BOTH"
 
 [[dependencies.charm]]
     modId="charm"
     mandatory=true
-    versionRange="[2.1.3,)"
+    versionRange="[2.1.4,)"
     ordering="BEFORE"
     side="BOTH"
 

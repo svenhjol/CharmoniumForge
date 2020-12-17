@@ -15,12 +15,13 @@ public class Charmonium {
     public static final String MOD_ID = "charmonium";
 
     public Charmonium() {
-        CharmoniumSounds.init();
 
         ModuleHandler.INSTANCE.registerForgeMod(MOD_ID, Arrays.asList(
             Music.class,
             Sounds.class
         ));
+
+        CharmoniumSounds.init();
 
         DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> CharmoniumClient::new);
     }

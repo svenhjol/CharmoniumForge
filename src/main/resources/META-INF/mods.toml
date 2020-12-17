@@ -23,7 +23,7 @@ authors="svenhjol, warlordwossman, Coranthes"
 [[dependencies.charm]]
     modId="charm"
     mandatory=true
-    versionRange="[2.1.4,)"
+    versionRange="[2.1.9,)"
     ordering="BEFORE"
     side="BOTH"
 

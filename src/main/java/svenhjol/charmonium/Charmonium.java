@@ -3,7 +3,7 @@ package svenhjol.charmonium;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.common.Mod;
-import svenhjol.charm.base.handler.ModuleHandler;
+import svenhjol.charm.base.CharmLoader;
 import svenhjol.charmonium.base.CharmoniumSounds;
 import svenhjol.charmonium.module.Music;
 import svenhjol.charmonium.module.Sounds;
@@ -16,7 +16,7 @@ public class Charmonium {
 
     public Charmonium() {
 
-        ModuleHandler.INSTANCE.registerForgeMod(MOD_ID, Arrays.asList(
+        new CharmLoader(MOD_ID, Arrays.asList(
             Music.class,
             Sounds.class
         ));

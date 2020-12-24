@@ -1,9 +1,9 @@
 package svenhjol.charmonium;
 
-import svenhjol.charm.base.handler.ClientHandler;
+import svenhjol.charm.base.CharmClientLoader;
 
 public class CharmoniumClient {
     public CharmoniumClient() {
-        ClientHandler.INSTANCE.registerForgeMod(Charmonium.MOD_ID);
+        new CharmClientLoader(Charmonium.MOD_ID);
     }
 }

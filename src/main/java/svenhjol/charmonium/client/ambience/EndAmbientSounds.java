@@ -2,7 +2,6 @@ package svenhjol.charmonium.client.ambience;
 
 import net.minecraft.client.audio.SoundHandler;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import svenhjol.charm.base.helper.DimensionHelper;
 import svenhjol.charmonium.base.CharmoniumSounds;
@@ -16,7 +15,7 @@ public class EndAmbientSounds extends BaseAmbientSounds {
 
     public boolean isValid() {
         if (world == null) return false;
-        return DimensionHelper.isDimension(player.world, new ResourceLocation("the_end"));
+        return DimensionHelper.isEnd(world);
     }
 
     @Override

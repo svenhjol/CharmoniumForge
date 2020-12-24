@@ -20,16 +20,16 @@ authors="svenhjol, warlordwossman, Coranthes"
     ordering="NONE"
     side="BOTH"
 
-[[dependencies.charm]]
+[[dependencies.charmonium]]
     modId="charm"
     mandatory=true
-    versionRange="[2.1.9,)"
-    ordering="BEFORE"
+    versionRange="[2.2.0,)"
+    ordering="AFTER"
     side="BOTH"
 
 [[dependencies.charmonium]]
     modId="quark"
     mandatory=false
     versionRange="[r2.4,)"
-    ordering="BEFORE"
+    ordering="AFTER"
     side="BOTH"

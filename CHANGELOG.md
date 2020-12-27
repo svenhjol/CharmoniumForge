@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.2.1
+* Bump to sync with Charm 2.2.1
+
 ## 2.2.0
 * Depends on Charm 2.2.0
 * Fix compat issue with Immersive Portals #5

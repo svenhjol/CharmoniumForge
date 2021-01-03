@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.2.2
+* Bump to sync with Charm 2.2.2
+
 ## 2.2.1
 * Bump to sync with Charm 2.2.1
 

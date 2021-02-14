@@ -1,5 +1,13 @@
 # Changelog
 
+## 2.3.2
+* Bump to sync with Charm 2.3.2
+
+## 2.3.1
+* Added badlands biome sounds
+* Added more forest, plains and night sounds
+* Added more cave sounds
+
 ## 2.2.2
 * Bump to sync with Charm 2.2.2
 

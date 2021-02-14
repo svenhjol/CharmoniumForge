@@ -10,7 +10,7 @@ import svenhjol.charmonium.iface.IBiomeAmbience;
 
 import javax.annotation.Nullable;
 
-public class DesertAmbientSounds {
+public class BadlandsAmbientSounds {
     public static class Day extends BaseAmbientSounds implements IBiomeAmbience {
         public Day(PlayerEntity player, SoundHandler soundHandler) {
             super(player, soundHandler);
@@ -19,18 +19,18 @@ public class DesertAmbientSounds {
         @Nullable
         @Override
         public SoundEvent getLongSound() {
-            return CharmoniumSounds.AMBIENCE_DESERT_DAY_LONG;
+            return CharmoniumSounds.AMBIENCE_BADLANDS_DAY_LONG;
         }
 
         @Nullable
         @Override
         public SoundEvent getShortSound() {
-            return CharmoniumSounds.AMBIENCE_DESERT_DAY_SHORT;
+            return CharmoniumSounds.AMBIENCE_BADLANDS_DAY_SHORT;
         }
 
         @Override
         public int getShortSoundDelay() {
-            return world.rand.nextInt(500) + 600;
+            return world.rand.nextInt(700) + 700;
         }
 
         @Override
@@ -40,10 +40,9 @@ public class DesertAmbientSounds {
 
         @Override
         public boolean validBiomeConditions(Biome.Category biomeCategory) {
-            return (biomeCategory == Biome.Category.DESERT
-                || biomeCategory == Biome.Category.MESA)
-                && isOutside()
-                && PlayerStateClient.INSTANCE.isDaytime;
+            return biomeCategory == Biome.Category.MESA
+                && PlayerStateClient.INSTANCE.isDaytime
+                && isOutside();
         }
     }
 
@@ -55,24 +54,12 @@ public class DesertAmbientSounds {
         @Nullable
         @Override
         public SoundEvent getLongSound() {
-            return CharmoniumSounds.AMBIENCE_DESERT_NIGHT_LONG;
-        }
-
-        @Nullable
-        @Override
-        public SoundEvent getShortSound() {
-            return CharmoniumSounds.AMBIENCE_DESERT_NIGHT_SHORT;
-        }
-
-        @Override
-        public int getShortSoundDelay() {
-            return world.rand.nextInt(400) + 400;
+            return CharmoniumSounds.AMBIENCE_BADLANDS_NIGHT_LONG;
         }
 
         @Override
         public boolean validBiomeConditions(Biome.Category biomeCategory) {
-            return (biomeCategory == Biome.Category.DESERT
-                || biomeCategory == Biome.Category.MESA)
+            return biomeCategory == Biome.Category.MESA
                 && isOutside()
                 && !PlayerStateClient.INSTANCE.isDaytime;
         }

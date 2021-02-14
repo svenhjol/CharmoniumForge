@@ -74,15 +74,13 @@
     "sounds": [
       {"name": "charmonium:ambience/underground/cave_bat"},
       {"name": "charmonium:ambience/underground/cave_rocks1"},
-      {"name": "charmonium:ambience/underground/cave_rocks2"}
-    ]
-  },
-  "ambience.crystals.short": {
-    "sounds": [
-      {"name": "charmonium:ambience/crystals/crystals1"},
-      {"name": "charmonium:ambience/crystals/crystals2"},
-      {"name": "charmonium:ambience/crystals/crystals3"},
-      {"name": "charmonium:ambience/crystals/crystals4"}
+      {"name": "charmonium:ambience/underground/cave_rocks2"},
+      {"name": "charmonium:ambience/underground/cave_rocks4"},
+      {"name": "charmonium:ambience/underground/cave_rocks5"},
+      {"name": "charmonium:ambience/underground/cave_rocks6"},
+      {"name": "charmonium:ambience/underground/cave_rocks7"},
+      {"name": "charmonium:ambience/underground/cave_rocks8"},
+      {"name": "charmonium:ambience/underground/small_drips1"}
     ]
   },
   "ambience.deep.long": {
@@ -198,6 +196,25 @@
     "sounds": [
       {"name": "charmonium:ambience/crickets/crickets3"},
       {"name": "charmonium:ambience/cicadas/cicadas3"}
+    ]
+  },
+  "ambience.badlands.day_long": {
+    "sounds": [
+      {"name": "charmonium:ambience/badlands/badlands_windy1"},
+      {"name": "charmonium:ambience/badlands/badlands_windy2"}
+    ]
+  },
+  "ambience.badlands.day_short": {
+    "sounds": [
+      {"name": "charmonium:ambience/cicadas/cicadas_short1"},
+      {"name": "charmonium:ambience/cicadas/cicadas_short2"},
+      {"name": "charmonium:ambience/cicadas/cicadas_short3"}
+    ]
+  },
+  "ambience.badlands.night_long": {
+    "sounds": [
+      {"name": "charmonium:ambience/crickets/crickets2"},
+      {"name": "charmonium:ambience/crickets/crickets4"}
     ]
   },
   "ambience.mineshaft.short": {

@@ -68,6 +68,10 @@ public class SoundsClient extends CharmClientModule {
 
             // biomes
             if (Sounds.beachAmbience) ambientSounds.add(new BeachAmbientSounds(player, soundHandler));
+            if (Sounds.badlandsAmbience) ambientSounds.addAll(Arrays.asList(
+                new BadlandsAmbientSounds.Day(player, soundHandler),
+                new BadlandsAmbientSounds.Night(player, soundHandler)
+            ));
             if (Sounds.desertAmbience) ambientSounds.addAll(Arrays.asList(
                 new DesertAmbientSounds.Day(player, soundHandler),
                 new DesertAmbientSounds.Night(player, soundHandler)

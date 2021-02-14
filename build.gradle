@@ -52,8 +52,8 @@ dependencies {
 	// third party
 	compile fg.deobf("vazkii.quark:Quark:${project.quark_version}")
 	compile fg.deobf("vazkii.autoreglib:AutoRegLib:${project.arl_version}")
-	compileOnly fg.deobf("mezz.jei:jei-${project.minecraft_version}:${project.jei_version}:api")
-	runtimeOnly fg.deobf("mezz.jei:jei-${project.minecraft_version}:${project.jei_version}")
+	compileOnly fg.deobf("mezz.jei:${project.jei_version}:api")
+	runtimeOnly fg.deobf("mezz.jei:${project.jei_version}")
 }
 
 repositories {

@@ -122,7 +122,7 @@
       {"name": "charmonium:ambience/cicadas/cicadas_short3"}
     ]
   },
-  "ambience.extreme_hills.day_long": {
+  "ambience.mountains.day_long": {
     "sounds": [
       {"name": "charmonium:ambience/plains/windy_plains1"},
       {"name": "charmonium:ambience/wind/wind1"},
@@ -130,7 +130,7 @@
       {"name": "charmonium:ambience/wind/wind3"}
     ]
   },
-  "ambience.extreme_hills.day_short": {
+  "ambience.mountains.day_short": {
     "sounds": [
       {"name": "charmonium:ambience/crows/crow1"},
       {"name": "charmonium:ambience/crows/crow2"},
@@ -138,7 +138,7 @@
       {"name": "charmonium:ambience/crows/crow4"}
     ]
   },
-  "ambience.extreme_hills.night_long": {
+  "ambience.mountains.night_long": {
     "sounds": [
       {"name": "charmonium:ambience/wind/wind1"},
       {"name": "charmonium:ambience/wind/wind2"},
